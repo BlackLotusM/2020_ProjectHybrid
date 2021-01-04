@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlayerName
+  - Obstacle
   layers:
   - Default
   - TransparentFX
