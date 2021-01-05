@@ -14,34 +14,14 @@ using UnityEngine;
 
 namespace Mirror
 {
-    /// <summary>
-    /// a class that holds readers for the different types
-    /// Note that c# creates a different static variable for each
-    /// type
-    /// This will be populated by the weaver
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     public static class Reader<T>
     {
         public static Func<NetworkReader, T> read;
     }
 
-    // Note: This class is intended to be extremely pedantic, and
-    // throw exceptions whenever stuff is going slightly wrong.
-    // The exceptions will be handled in NetworkServer/NetworkClient.
-    /// <summary>
-    /// Binary stream Reader. Supports simple types, buffers, arrays, structs, and nested types
-    /// <para>Use <see cref="NetworkReaderPool.GetReader">NetworkReaderPool.GetReader</see> to reduce memory allocation</para>
-    /// </summary>
     public class NetworkReader
     {
-        // internal buffer
-        // byte[] pointer would work, but we use ArraySegment to also support
-        // the ArraySegment constructor
         internal ArraySegment<byte> buffer;
-
-        // 'int' is the best type for .Position. 'short' is too small if we send >32kb which would result in negative .Position
-        // -> converting long to int is fine until 2GB of data (MAX_INT), so we don't have to worry about overflows here
         public int Position;
         public int Length => buffer.Count;
 
