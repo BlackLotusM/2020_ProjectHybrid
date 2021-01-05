@@ -6,18 +6,20 @@ using Newtonsoft.Json.Linq;
 using UnityEngine.Networking;
 using System.Collections;
 using Newtonsoft.Json;
+using FirstGearGames.Mirrors.SynchronizingBulkSceneObjects;
+using UnityEngine.UI;
 
 public class PlayerManager : NetworkBehaviour
 {
     private NetworkManager NetManager;
     public TextMeshProUGUI playerNameText;
     private Material playerMaterialClone;
-    
     [SyncVar(hook = nameof(OnColorChanged))]
     public Color playerColor = Color.white;
     [SyncVar(hook = nameof(OnNameChanged))]
     public string playerName;
-
+    public GameObject bloem;
+   
     [SerializeField]
     private GameObject CameraMountPoint = null;
     public bool isMobile;
@@ -29,16 +31,23 @@ public class PlayerManager : NetworkBehaviour
 
     [Header("Island")]
     [SerializeField]private GameObject[] Obstacles = new GameObject[0];
+    public int islandTypeInt = 0;
+
     public float obstacleCheckRadius = 3f;
     public int maxSpawnAttemptsPerObstacle = 10;
     public float maxX1, maxY1 = 0;
     public float maxX2, maxY2 = 0;
+    [SerializeField]
+    private Button SelectIsland;
+    [SerializeField]
+    private GameObject selectIslandGroup;
     GameObject Obstacle;
     public GameObject art;
 
     private void Awake()
     {
         NetManager = FindObjectOfType<NetworkManager>();
+        playerName = NetManager.DisplayName;
     }
 
     void OnNameChanged(string _Old, string _New)
@@ -76,15 +85,30 @@ public class PlayerManager : NetworkBehaviour
             foreach (var obj in jsonObj)
             {
                 Vector3 pos = new Vector3((float)obj.x, (float)obj.y, (float)obj.z);
-                GameObject t =  Instantiate(Obstacles[0], pos, Quaternion.identity);
+                WorldObjectTypes value = (WorldObjectTypes)obj.IslandType;
+                WorldObject wo = WorldObjectManager.Instance.InstantiateWorldObject(value, pos, Quaternion.identity);
+                IslandObjectData data = (IslandObjectData)wo.ReturnData();
+                data.SetTreeState(IslandObjectData.TreeStates.Default);
+                wo.UpdateData(data);
+                WorldObjectManager.Instance.InitializeWorldObject(wo, value);
             }
         };
     }
     [Command]
-    private void SpawnIsland(Vector3 position2, GameObject Obstacle2)
+    private void SpawnIsland(Vector3 position2, int island)
     {
-        GameObject t = Instantiate(art, position2, Quaternion.identity);
-        t.name = name + " Island";
+        WorldObjectTypes value = (WorldObjectTypes)island;
+        WorldObject wo = WorldObjectManager.Instance.InstantiateWorldObject(value, position2, Quaternion.identity);
+        IslandObjectData data = (IslandObjectData)wo.ReturnData();
+        data.SetTreeState(IslandObjectData.TreeStates.Default);
+        wo.UpdateData(data);
+        wo.name = name + " Island";
+        WorldObjectManager.Instance.InitializeWorldObject(wo, value);
+    }
+
+    public void setIslandType(int type)
+    {
+        islandTypeInt = type;
     }
     private IEnumerator InitializePlayer(GameObject Target)
     {
@@ -95,7 +119,14 @@ public class PlayerManager : NetworkBehaviour
 
         if (data2.HasIsland == 0)
         {
-            //ToDo - Display island selection   
+            selectIslandGroup.SetActive(true);
+            var waitForButton = new WaitForUIButtons(SelectIsland);
+            yield return waitForButton.Reset();
+            if (waitForButton.PressedButton)
+            {
+                selectIslandGroup.SetActive(false);
+            }
+
             Obstacle = Obstacles[Random.Range(0, Obstacles.Length)];
             Vector3 position2 = Vector3.zero;
             bool validPosition = false;
@@ -125,10 +156,10 @@ public class PlayerManager : NetworkBehaviour
 
             if (validPosition)
             {
-                string final = addIsland + name + "&Center_X=0" + "&Center_Y=0" + "&Center_Z=0" + "&IslandPosX=" + position2.x + "&IslandPosY=" + position2.y + "&IslandPosZ=" + position2.z;
+                string final = addIsland + name + "&Center_X=0" + "&Center_Y=0" + "&Center_Z=0" + "&IslandPosX=" + position2.x + "&IslandPosY=" + position2.y + "&IslandPosZ=" + position2.z + "&IslandType=" + islandTypeInt;
                 StartCoroutine(SetIsland(final));
 
-                SpawnIsland(position2, Obstacle);
+                SpawnIsland(position2, islandTypeInt);
                 var x = position2.x;
                 var y = position2.y;
                 var z = position2.z;
@@ -139,6 +170,7 @@ public class PlayerManager : NetworkBehaviour
         }
         else
         {
+            selectIslandGroup.SetActive(false);
             string posString = highscoreURL + name;
             var json = new WebClient().DownloadString(posString);
             dynamic data = JObject.Parse(json);
@@ -176,11 +208,23 @@ public class PlayerManager : NetworkBehaviour
         playerColor = _col;
     }
 
+    [Command]
+    public void CmdSpawn()
+    {
+        var GO = Instantiate(bloem, this.gameObject.transform.position, Quaternion.identity) as GameObject;
+        NetworkServer.Spawn(GO);
+    }
+
     void Update()
     {
         if (!isLocalPlayer)
         {
             return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CmdSpawn();
         }
 
         if (isMobile)
