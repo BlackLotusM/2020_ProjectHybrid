@@ -8,6 +8,13 @@ using System.Collections;
 using Newtonsoft.Json;
 using FirstGearGames.Mirrors.SynchronizingBulkSceneObjects;
 using UnityEngine.UI;
+using System.Collections.Generic;
+
+public class PlayerObj
+{
+    public int ID = 0;
+    public string Naam = "";
+}
 
 public class PlayerManager : NetworkBehaviour
 {
@@ -43,6 +50,8 @@ public class PlayerManager : NetworkBehaviour
     private GameObject selectIslandGroup;
     GameObject Obstacle;
     public GameObject art;
+    public List<string> targetVelocity;
+    public List<string> setList;
 
     private void Awake()
     {
@@ -53,6 +62,7 @@ public class PlayerManager : NetworkBehaviour
     void OnNameChanged(string _Old, string _New)
     {
             playerNameText.text = playerName;
+
     }
 
     void OnColorChanged(Color _Old, Color _New)
@@ -66,6 +76,7 @@ public class PlayerManager : NetworkBehaviour
         }
     }
 
+    
     public override void OnStartLocalPlayer()
     {
         playerName = NetManager.DisplayName;
@@ -74,7 +85,9 @@ public class PlayerManager : NetworkBehaviour
         CmdSetupPlayer(playerName, color);
         if (isServer){InitIslands();}
         StartCoroutine(InitializePlayer(gameObject));
+        StartCoroutine(UpdateList());
     }
+
 
     private void InitIslands()
     {
@@ -215,6 +228,24 @@ public class PlayerManager : NetworkBehaviour
         NetworkServer.Spawn(GO);
     }
 
+    IEnumerator UpdateList()
+    {
+        targetVelocity = new List<string>();
+        setList = new List<string>();
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject p in players)
+        {
+            targetVelocity.Add(p.GetComponent<PlayerManager>().playerName);
+        }
+
+        setList = targetVelocity;
+        
+        Debug.Log(setList.Count);
+        yield return new WaitForSeconds(2f);
+        targetVelocity.Clear();
+
+        StartCoroutine(UpdateList());
+    }
     void Update()
     {
         if (!isLocalPlayer)
