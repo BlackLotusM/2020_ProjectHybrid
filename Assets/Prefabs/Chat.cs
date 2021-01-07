@@ -10,12 +10,14 @@ using System.Net;
 using UnityEngine.Networking;
 using Newtonsoft.Json.Linq;
 
-public class reeeee : NetworkBehaviour
+public class Chat : NetworkBehaviour
 {
+    [Header("Chat Related")]
     [SerializeField] private TextMeshProUGUI chatText = null;
     [SerializeField] private TMP_InputField inputField = null;
     [SerializeField] private GameObject canvas = null;
     [SerializeField] private PlayerManager pm = null;
+
     private static event Action<string> OnMessage;
     private bool active = false;
     [SerializeField]private bool ismobile = false;
@@ -91,18 +93,16 @@ public class reeeee : NetworkBehaviour
 
     private void Start()
     {
+        if (!isLocalPlayer) return;
+        canvasUI.SetActive(true);
         nm = FindObjectOfType<NetworkManager>();
-        if (isLocalPlayer)
+        if (isClient)
         {
-            canvasUI.SetActive(true);
-            if (isClient)
-            {
-                CmdSendMessage("Joined the game");
-            }
-            else
-            {
-                RpcHandleMessage("Joined the game");
-            }
+            CmdSendMessage("Joined the game");
+        }
+        else
+        {
+            RpcHandleMessage("Joined the game");
         }
     }
 
@@ -118,15 +118,9 @@ public class reeeee : NetworkBehaviour
             if (isLocalPlayer)
             {
                 active = !active;
-                Activate(active);
+                canvas.SetActive(active);
             }
         }
-    }
-
-    [Client]
-    public void Activate(bool active)
-    {
-        canvas.SetActive(active);
     }
 
     [Client]
