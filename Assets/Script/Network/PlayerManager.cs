@@ -56,6 +56,8 @@ public class PlayerManager : NetworkBehaviour
     public List<string> targetVelocity;
     public List<string> setList;
 
+    public GameObject MinigGame;
+
     private void Awake()
     {
         NetManager = FindObjectOfType<NetworkManager>();
@@ -82,15 +84,12 @@ public class PlayerManager : NetworkBehaviour
     
     public override void OnStartLocalPlayer()
     {
-        playerName = NetManager.DisplayName;
-        gameObject.name = playerName;
         Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        playerName = NetManager.DisplayName;
         CmdSetupPlayer(playerName, color);
         if (isServer){InitIslands();}
         StartCoroutine(InitializePlayer(gameObject));
     }
-
-
     private void InitIslands()
     {
         var json22 = new WebClient().DownloadString(getIsland);
@@ -103,15 +102,19 @@ public class PlayerManager : NetworkBehaviour
                 {
                     Vector3 pos = new Vector3((float)obj.x, (float)obj.y, (float)obj.z);
                     WorldObjectTypes value = (WorldObjectTypes)obj.IslandType;
+
                     WorldObject wo = WorldObjectManager.Instance.InstantiateWorldObject(value, pos, Quaternion.identity);
                     IslandObjectData data = (IslandObjectData)wo.ReturnData();
                     data.SetTreeState(IslandObjectData.TreeStates.Default);
                     wo.UpdateData(data);
+                    wo.name = obj.naam + "Island";
                     WorldObjectManager.Instance.InitializeWorldObject(wo, value);
+                    GameObject mg = wo.transform.Find("MiniGame").gameObject;
                 }                
             }
-        };
+        }
     }
+
     [Command]
     private void CmdSpawnIsland(Vector3 position2, int island)
     {
@@ -120,9 +123,10 @@ public class PlayerManager : NetworkBehaviour
         IslandObjectData data = (IslandObjectData)wo.ReturnData();
         data.SetTreeState(IslandObjectData.TreeStates.Default);
         wo.UpdateData(data);
-        wo.name = name + " Island";
+        wo.name = name + "Island";
         WorldObjectManager.Instance.InitializeWorldObject(wo, value);
         Transform node = wo.transform.Find("Node");
+
         string start = "http://86.91.184.42/addWeatherNode.php?naam=" + playerName+"&PosX="+ node.transform.position.x+ "&PosY=" + node.transform.position.y + "&PosZ=" + node.transform.position.z + "";
         StartCoroutine(SetNode(start));
     }
@@ -184,7 +188,7 @@ public class PlayerManager : NetworkBehaviour
 
             if (validPosition)
             {
-                string final = addIsland + name + "&Center_X=" + position2.x + "&Center_Y=" + position2.y + 2 + "&Center_Z=" + position2.z +
+                string final = addIsland + playerName + "&Center_X=" + position2.x + "&Center_Y=" + position2.y + 2 + "&Center_Z=" + position2.z +
             "&IslandPosX=" + position2.x + "&IslandPosY=" + position2.y + "&IslandPosZ=" + position2.z + "&IslandType=" + islandTypeInt;
                 StartCoroutine(SetIsland(final));
                 CmdSpawnIsland(position2, islandTypeInt);
@@ -236,22 +240,12 @@ public class PlayerManager : NetworkBehaviour
         playerColor = _col;
     }
 
-    [Command]
-    public void CmdSpawn()
-    {
-        var GO = Instantiate(bloem, this.gameObject.transform.position, Quaternion.identity) as GameObject;
-        NetworkServer.Spawn(GO);
-    }
     void Update()
     {
+        this.gameObject.name = playerName;
         if (!isLocalPlayer)
         {
             return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            CmdSpawn();
         }
 
         if (isMobile)

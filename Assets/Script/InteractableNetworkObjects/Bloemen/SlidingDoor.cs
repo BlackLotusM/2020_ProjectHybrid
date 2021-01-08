@@ -38,24 +38,24 @@ public class SlidingDoor : NetworkBehaviour, INetworkUsable
             RpcUpdate(_plantHappy, _plantSad, _open);
         }
     }
-    //public override void OnStartServer()
-    //{
-    //    if (isClient && isServer)
-    //    {
-    //        NetworkServer.Spawn(this.gameObject, connectionToClient);
-    //        int t = Random.Range(0, 3);
-    //        if (t == 1)
-    //        {
-    //            _open = true;
-    //        }
-    //        else
-    //        {
-    //            _open = false;
-    //        }
+    public override void OnStartServer()
+    {
+        if (isClient && isServer)
+        {
+            NetworkServer.Spawn(this.gameObject, connectionToClient);
+            int t = Random.Range(0, 3);
+            if (t == 1)
+            {
+                _open = true;
+            }
+            else
+            {
+                _open = false;
+            }
 
-    //        RpcUpdate(_plantHappy, _plantSad, _open);
-    //    }
-    //}
+            RpcUpdate(_plantHappy, _plantSad, _open);
+        }
+    }
     private void Update()
     {
         MoveDoor();

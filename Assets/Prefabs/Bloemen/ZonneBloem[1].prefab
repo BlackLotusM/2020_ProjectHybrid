@@ -9,13 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4010927957403984775}
-  - component: {fileID: 4010927957403984772}
   - component: {fileID: 4010927957403984773}
   - component: {fileID: 4010927957403984506}
-  - component: {fileID: 4010927957403984507}
+  - component: {fileID: -1252845068740030858}
   m_Layer: 0
   m_Name: ZonneBloem[1]
-  m_TagString: Untagged
+  m_TagString: Bloem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,20 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4010927957403984772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4010927957403984504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 612b1b0fef24e5040a8c180bc146c796, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
 --- !u!114 &4010927957403984773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,7 +64,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4010927957403984507
+--- !u!114 &-1252845068740030858
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,14 +73,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4010927957403984504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8b87f906fe09a5498a3632caa6cb024, type: 3}
+  m_Script: {fileID: 11500000, guid: bce86dbfd072fce4abfe3050e73212f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  _plantHappy: {fileID: 4280887397977489321}
-  _plantSad: {fileID: 4280887396810760490}
-  _open: 0
+  BloemState: 0
+  sadBloem: {fileID: 4280887396810760490}
+  happyBloem: {fileID: 4280887397977489321}
 --- !u!1001 &4010927955980698360
 PrefabInstance:
   m_ObjectHideFlags: 0

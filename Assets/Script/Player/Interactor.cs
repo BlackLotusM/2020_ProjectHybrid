@@ -14,10 +14,10 @@ namespace FirstGearGames.Mirrors.InteractingSceneObjects
 
         private void ClientUpdate()
         {
-            if (base.isServer && !base.isClient)
-                return;
-            if (!base.hasAuthority)
-                return;
+            //if (base.isServer && !base.isClient)
+            //    return;
+            //if (!base.hasAuthority)
+            //    return;
 
             if (Input.GetKeyDown(KeyCode.Mouse1))
                 TryInteract();
@@ -25,30 +25,13 @@ namespace FirstGearGames.Mirrors.InteractingSceneObjects
 
         private void TryInteract()
         {
-            Collider[] hits = Physics.OverlapSphere(transform.position, 0.2f);
+            Collider[] hits = Physics.OverlapSphere(transform.position, 0.6f);
             for (int i = 0; i < hits.Length; i++)
             {
-                INetworkUsable[] usables = hits[i].GetComponents<INetworkUsable>();
-                foreach (INetworkUsable usable in usables)
+                if(hits[i].tag == "Bloem")
                 {
-                    if (usable != null)
-                    {
-                        if (!base.isServer)
-                            usable.Use();
-                        CmdUse(usable.GetNetworkIdentity(), usable.GetId());
-                    }
+                    hits[i].gameObject.GetComponent<PlantRedo>().SetState(this.gameObject.GetComponent<PlantManager>());
                 }
-            }
-        }
-
-        [Command]
-        private void CmdUse(NetworkIdentity netIdent, int id)
-        {
-            INetworkUsable[] usables = netIdent.gameObject.GetComponents<INetworkUsable>();
-            for (int i = 0; i < usables.Length; i++)
-            {
-                if (usables[i].GetId() == id)
-                    usables[i].Use();
             }
         }
     }

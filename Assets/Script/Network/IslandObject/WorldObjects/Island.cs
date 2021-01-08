@@ -17,7 +17,6 @@ namespace FirstGearGames.Mirrors.SynchronizingBulkSceneObjects
         private GameObject _visualObject;
         #endregion
 
-
         protected override void Awake()
         {
             base.Awake();
