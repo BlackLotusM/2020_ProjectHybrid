@@ -27,6 +27,7 @@ public class Weather : NetworkBehaviour
     public GameObject PanelQuestDone;
     public GameObject PanelQuestOnGoing;
     public ShowRemove Notication;
+    public Chat chat;
     private string getSpawnPos = "http://86.91.184.42/getWeatherNode.php?naam=";
 
     void Start()
@@ -104,6 +105,7 @@ public class Weather : NetworkBehaviour
         string final = getSpawnPos + pm.playerName;
         StartCoroutine(getPartPosMad(final));
         Notication.startNotification("The storm", "A storm is roling in, but don't be afraid everything will clear up.");
+        chat.SendCustom($"Uh oh.. Looks like a storm’s coming on {pm.playerName} their island.");
     }
     void setClear()
     {
@@ -113,6 +115,7 @@ public class Weather : NetworkBehaviour
         string final = getSpawnPos + pm.playerName;
         StartCoroutine(getPartPosClear(final));
         Notication.startNotification("Open sky", "The nature seems at peace. Time to explore and try new things.");
+        chat.SendCustom($"What a lovely day on {pm.playerName} their island. Would be nice to check it out.");
     }
 
     void setRain()
@@ -123,5 +126,6 @@ public class Weather : NetworkBehaviour
         string final = getSpawnPos + pm.playerName;
         StartCoroutine(getPartPosRain(final));
         Notication.startNotification("Angle tears", "Rain fills the sky but look at the ground. Everything will dry up and the weather will get better.");
+        chat.SendCustom($"Looks like it’s raining cats and dogs on  {pm.playerName} their island today.");
     }
 }

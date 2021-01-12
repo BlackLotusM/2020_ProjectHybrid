@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WaterFallNew 4
+  m_Shader: {fileID: 4800000, guid: 2ecd2903d107ab243b62d6869ae2eef8, type: 3}
+  m_ShaderKeywords: RIM VERTEX
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _GlobalEffectRT:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SideNoiseTex:
+        m_Texture: {fileID: 2800000, guid: e5579ca518f171d40aa741f32e4dadf5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TopNoiseTex:
+        m_Texture: {fileID: 2800000, guid: 2fc8cc8c44342b14f887a639056495dd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Amount: 10
+    - _BrightNess: 2
+    - _Brightness: 1.287
+    - _DepthOffset: -0.3
+    - _Distort: 0.279
+    - _EdgeWidth: 0.9
+    - _EdgeWidth2: 0.3
+    - _Foam: 50
+    - _FresnelBias: 0.6
+    - _FresnelPower: 0.6
+    - _FresnelScale: 0.1
+    - _FresnelScale2: 0.96
+    - _FresnelScale3: -1.08
+    - _Height: 0.295
+    - _HorSpeed: 0.42
+    - _Metallic: 0
+    - _NoiseScale: 0.016
+    - _RIM: 1
+    - _Reflectivity: 0.106
+    - _RimPower: 20
+    - _Smoothness: 1
+    - _Softness: 0
+    - _Speed: 0.5
+    - _SpeedV: 2.73
+    - _Stretch: 0.33
+    - _Test: 0.299
+    - _TopScale: 0.1
+    - _TopSpread: 0.68
+    - _VERTEX: 1
+    - _VertSpeed: 18.8
+    m_Colors:
+    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 0.09433961, g: 0.7549837, b: 1, a: 1}
+    - _TColor: {r: 0.764151, g: 0.9355757, b: 1, a: 0.09803922}
+    - _WaterColor: {r: 0, g: 1, b: 0.9416666, a: 0.41568628}

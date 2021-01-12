@@ -119,14 +119,7 @@ public class Chat : NetworkBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (isLocalPlayer)
-            {
-                active = !active;
-                canvas.SetActive(active);
-            }
-        }
+
     }
 
     [Client]
@@ -137,11 +130,24 @@ public class Chat : NetworkBehaviour
         inputField.text = string.Empty;
     }
 
+    [Client]
+    public void SendCustom(string message)
+    {
+        CmdServerMessage(message);
+    }
+
     [Command]
     private void CmdSendMessage(string message)
     {
         // Validate message
         RpcHandleMessage($"[{pm.playerName}]: {message}");
+    }
+
+    [Command]
+    private void CmdServerMessage(string message)
+    {
+        // Validate message
+        RpcHandleMessage($"Weather Station: {message}");
     }
 
     [ClientRpc]

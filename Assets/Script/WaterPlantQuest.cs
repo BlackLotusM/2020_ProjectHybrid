@@ -10,7 +10,7 @@ public class WaterPlantQuest : MonoBehaviour
     public TextMeshProUGUI Collected;
     public GameObject EnablePanel;
     public GameObject DisablePanel;
-
+    
     // Update is called once per frame
     void Update()
     {

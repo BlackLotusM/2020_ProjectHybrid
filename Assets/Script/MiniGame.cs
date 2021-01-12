@@ -120,7 +120,9 @@ public class MiniGame : NetworkBehaviour
                 this.gameObject.transform.position = Vector3.MoveTowards(transform.position, new Vector3(this.transform.position.x, newy, this.gameObject.transform.position.z), 0.1f);
             }
 
-            if (Vector3.Distance(this.gameObject.transform.position, wayPoint1.transform.position) < 1)
+            yield return new WaitForSeconds(0.01f);
+            StartCoroutine(moveUp(MiniGameActive));
+            if (Vector3.Distance(new Vector3(this.gameObject.transform.position.x, 0 , this.gameObject.transform.position.z), new Vector3(wayPoint1.transform.position.x, 0, wayPoint1.transform.position.z)) < 1)
             {
                 foreach(GameObject p in players)
                 {
@@ -130,8 +132,7 @@ public class MiniGame : NetworkBehaviour
             }
             else
             {
-                yield return new WaitForSeconds(0.01f);
-                StartCoroutine(moveUp(MiniGameActive));
+                
             }
         }
     }

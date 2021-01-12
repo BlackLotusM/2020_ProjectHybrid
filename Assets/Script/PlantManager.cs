@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlantManager : NetworkBehaviour
 {
     public int PlantsFixed;
+    public ShowRemove sr;
+    private bool anim = false;
     public void bishwerk(GameObject pr)
     {
         SetStates(pr);
@@ -32,6 +34,18 @@ public class PlantManager : NetworkBehaviour
         if (isServer)
         {
             Debug.Log("ree");
+        }
+    }
+
+    private void Update()
+    {
+        if (PlantsFixed >= 5)
+        {
+            if (!anim)
+            {
+                sr.startNotification("Plants quest", "You have completed the quest.");
+                anim = true;
+            }
         }
     }
 }

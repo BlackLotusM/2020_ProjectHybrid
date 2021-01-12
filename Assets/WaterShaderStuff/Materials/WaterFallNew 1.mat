@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WaterFallNew 1
+  m_Shader: {fileID: 4800000, guid: 2ecd2903d107ab243b62d6869ae2eef8, type: 3}
+  m_ShaderKeywords: RIM VERTEX
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _GlobalEffectRT:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SideNoiseTex:
+        m_Texture: {fileID: 2800000, guid: c1d17104ac329429a8ce5b3c5e3e0764, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TopNoiseTex:
+        m_Texture: {fileID: 2800000, guid: 7b99b9eccb5c6f84a9189d8e44803e8b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Amount: 9.05
+    - _BrightNess: 2
+    - _Brightness: 1.648
+    - _DepthOffset: 0
+    - _Distort: 0.228
+    - _EdgeWidth: 0.07
+    - _EdgeWidth2: 0.3
+    - _Foam: 6.2
+    - _FresnelBias: 2.43
+    - _FresnelPower: -1.82
+    - _FresnelScale: 0
+    - _FresnelScale2: 3.74
+    - _FresnelScale3: -0.2
+    - _Height: 0.084
+    - _HorSpeed: 0.94
+    - _Metallic: 0
+    - _NoiseScale: 0.01
+    - _RIM: 1
+    - _Reflectivity: 0.558
+    - _RimPower: 20
+    - _Smoothness: 0.732
+    - _Softness: 0.033
+    - _Speed: 0.5
+    - _SpeedV: 10
+    - _Stretch: 0.08
+    - _Test: 0.299
+    - _TopScale: 0.39
+    - _TopSpread: 0.21
+    - _VERTEX: 1
+    - _VertSpeed: 13.5
+    m_Colors:
+    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 0, g: 0.21524084, b: 0.23584908, a: 1}
+    - _TColor: {r: 0, g: 0.38070017, b: 0.58431375, a: 0.25490198}
+    - _WaterColor: {r: 0, g: 0.8787494, b: 1, a: 0.39607844}
+  m_BuildTextureStacks: []

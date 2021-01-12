@@ -15,6 +15,8 @@ public class StartMiniGameSCRIPT : NetworkBehaviour
     public bool finished = false;
     public GameObject IsDone;
     public GameObject IsCheck;
+    public ShowRemove Notifaction;
+    public bool noti = false;
 
     private void Start()
     {
@@ -27,6 +29,11 @@ public class StartMiniGameSCRIPT : NetworkBehaviour
         {
             IsDone.SetActive(true);
             IsCheck.SetActive(false);
+            if (!noti)
+            {
+                Notifaction.startNotification("Minigame quest", "Well done, you finished this quest.");
+                noti = true;
+            }
         }
         GameObject[] list = GameObject.FindGameObjectsWithTag("MiniGame");
         foreach (GameObject r in list)
