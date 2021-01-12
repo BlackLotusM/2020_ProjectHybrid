@@ -1303,7 +1303,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
+  m_fontSize: 16
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2789,39 +2789,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b673e173a3979ac43b4b991f0a5b283b, type: 3}
+  m_Script: {fileID: 11500000, guid: cbafbe2047500684e8814eb3a099a859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myGradient:
-    serializedVersion: 2
-    key0: {r: 0.46226418, g: 0.3113742, b: 0.42388967, a: 1}
-    key1: {r: 0.31224608, g: 0.6468586, b: 0.2467939, a: 1}
-    key2: {r: 0, g: 0.35517517, b: 0.4245283, a: 0}
-    key3: {r: 0.19666587, g: 0.07912067, b: 0.3301887, a: 0}
-    key4: {r: 0.1830188, g: 0.43745047, b: 1, a: 0}
-    key5: {r: 0.1830188, g: 0.43745047, b: 1, a: 0}
-    key6: {r: 0.1830188, g: 0.43745047, b: 1, a: 0}
-    key7: {r: 1, g: 1, b: 1, a: 0}
-    ctime0: 0
-    ctime1: 14649
-    ctime2: 30069
-    ctime3: 65535
-    ctime4: 65535
-    ctime5: 65535
-    ctime6: 65535
-    ctime7: 65535
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_NumColorKeys: 4
-    m_NumAlphaKeys: 2
-  strobeDuration: 10
+  syncMode: 0
+  syncInterval: 0.1
+  manager: {fileID: 8626722675781234937, guid: e7ff1bc2441382648a93153c9a96d936, type: 3}
+  connect1: {fileID: 1753201310}
+  connect2: {fileID: 1939754352}
+  sr: {fileID: 0}
 --- !u!1 &987968124
 GameObject:
   m_ObjectHideFlags: 0
@@ -3582,114 +3558,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1248103129}
   m_CullTransparentMesh: 0
---- !u!1 &1248277471
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1248277474}
-  - component: {fileID: 1248277475}
-  - component: {fileID: 1248277472}
-  m_Layer: 0
-  m_Name: Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1248277472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248277471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83ef36c43bcd9e849af7730e59ac2ca5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 1
-  runInBackground: 1
-  autoStartServerBuild: 1
-  showDebugMessages: 0
-  serverTickRate: 30
-  offlineScene: Assets/Scenes/Menu.unity
-  onlineScene: Assets/Scenes/ServerScene.unity
-  transport: {fileID: 1248277475}
-  networkAddress: localhost
-  maxConnections: 4
-  disconnectInactiveConnections: 0
-  disconnectInactiveTimeout: 60
-  authenticator: {fileID: 0}
-  playerPrefab: {fileID: 905421385435028584, guid: 1758084fe4417214b8cbd6149b7a29f2, type: 3}
-  autoCreatePlayer: 1
-  playerSpawnMethod: 0
-  spawnPrefabs:
-  - {fileID: 4010927957403984504, guid: af3b78c0a2baff14485aefa2143557ae, type: 3}
-  - {fileID: 7667197063558254587, guid: 7feb3942c91b5ea459f5349ad12bcda1, type: 3}
-  - {fileID: 5975483033557325713, guid: 63c202d6b97f48a48ae1cb16c51b7117, type: 3}
-  - {fileID: 7202615784230029609, guid: cf3bf9d3fff32c84bbcfdf8e63c264af, type: 3}
-  - {fileID: 4647182155795989765, guid: a7f5a29468b252e4b9d3ca1fd806496d, type: 3}
---- !u!4 &1248277474
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248277471}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 140.9822, y: 300.51846, z: 25.711193}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1248277475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248277471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnClientConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientError:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerError:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  port: 7777
-  NoDelay: 1
-  serverMaxMessageSize: 16384
-  serverMaxReceivesPerTick: 10000
-  clientMaxMessageSize: 16384
-  clientMaxReceivesPerTick: 1000
 --- !u!1 &1447409793
 GameObject:
   m_ObjectHideFlags: 0
@@ -5125,7 +4993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ip: {fileID: 627071889}
-  manager: {fileID: 1248277472}
+  manager: {fileID: 0}
   PlayerName: {fileID: 130982607}
   isHost: 1
 --- !u!1 &1830221486
@@ -5322,7 +5190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ip: {fileID: 1830221488}
-  manager: {fileID: 1248277472}
+  manager: {fileID: 0}
   PlayerName: {fileID: 989008157}
   isHost: 0
 --- !u!114 &1939754355

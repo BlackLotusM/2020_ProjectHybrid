@@ -6,9 +6,7 @@ using Mirror;
 
 public class PlantRedo : NetworkBehaviour
 {
-    
-    [SerializeField]
-    [SyncVar]
+    [SyncVar(hook = nameof(Bish))]
     public bool BloemState;
 
     [SerializeField]
@@ -16,17 +14,22 @@ public class PlantRedo : NetworkBehaviour
     [SerializeField]
     private GameObject happyBloem;
 
-    private void Start()
+    void Bish(bool _old, bool newV)
     {
-        int i = Random.Range(0, 22);
-        if(i > 17)
-        {
-            BloemState = true;
-        }
-        else
-        {
-            BloemState = false;
-        }
+        BloemState = newV;
+    }
+
+    private void Awake()
+    {
+            int i = Random.Range(0, 22);
+            if (i > 7)
+            {
+                BloemState = true;
+            }
+            else
+            {
+                BloemState = false;
+            }
     }
 
     public void SetState(PlantManager pm)

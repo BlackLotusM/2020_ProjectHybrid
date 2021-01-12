@@ -109,7 +109,6 @@ public class PlayerManager : NetworkBehaviour
                     wo.UpdateData(data);
                     wo.name = obj.naam + "Island";
                     WorldObjectManager.Instance.InitializeWorldObject(wo, value);
-                    GameObject mg = wo.transform.Find("MiniGame").gameObject;
                 }                
             }
         }
@@ -256,6 +255,7 @@ public class PlayerManager : NetworkBehaviour
         {
             float moveX = Input.GetAxis("Horizontal") * Time.deltaTime * rotateSpeed;
             float moveZ;
+
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 moveZ = Input.GetAxis("Vertical") * Time.deltaTime * SprintValue;

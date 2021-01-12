@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 using System.Net;
 using UnityEngine.Networking;
 using Newtonsoft.Json.Linq;
+using FirstGearGames.Mirrors.SynchronizingBulkSceneObjects;
 
 public class Chat : NetworkBehaviour
 {
@@ -22,6 +23,7 @@ public class Chat : NetworkBehaviour
     private bool active = false;
     [SerializeField]private bool ismobile = false;
     [SerializeField] private GameObject canvasUI = null;
+    [SerializeField] private GameObject noti = null;
     private string highscoreURL = "http://86.91.184.42/updateLastPosition.php?naam='";
     private NetworkManager nm;
 
@@ -50,7 +52,10 @@ public class Chat : NetworkBehaviour
 
                 if (isServer)
                 {
+                    WorldObjectManager nm2 = FindObjectOfType<WorldObjectManager>();
+                    nm2._dirty.Clear();
                     nm.StopHost();
+                    nm.StopServer();
                 }
                 else
                 {
@@ -95,6 +100,7 @@ public class Chat : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
         canvasUI.SetActive(true);
+        noti.SetActive(true);
         nm = FindObjectOfType<NetworkManager>();
         if (isClient)
         {

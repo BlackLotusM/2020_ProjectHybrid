@@ -6,7 +6,6 @@ namespace FirstGearGames.Mirrors.InteractingSceneObjects
 
     public class Interactor : NetworkBehaviour
     {
-
         private void Update()
         {
             ClientUpdate();
@@ -14,11 +13,6 @@ namespace FirstGearGames.Mirrors.InteractingSceneObjects
 
         private void ClientUpdate()
         {
-            //if (base.isServer && !base.isClient)
-            //    return;
-            //if (!base.hasAuthority)
-            //    return;
-
             if (Input.GetKeyDown(KeyCode.Mouse1))
                 TryInteract();
         }
@@ -30,7 +24,12 @@ namespace FirstGearGames.Mirrors.InteractingSceneObjects
             {
                 if(hits[i].tag == "Bloem")
                 {
-                    hits[i].gameObject.GetComponent<PlantRedo>().SetState(this.gameObject.GetComponent<PlantManager>());
+                    PlantRedo PR = hits[i].gameObject.GetComponent<PlantRedo>();
+                    if (PR.BloemState == false)
+                    {
+                        PR.SetState(this.gameObject.GetComponent<PlantManager>());
+                        this.gameObject.GetComponent<PlantManager>().PlantsFixed++;
+                    }
                 }
             }
         }

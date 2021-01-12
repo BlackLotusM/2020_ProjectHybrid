@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlantManager : NetworkBehaviour
-{    
+{
+    public int PlantsFixed;
     public void bishwerk(GameObject pr)
     {
-
         SetStates(pr);
     }
 
@@ -15,7 +15,10 @@ public class PlantManager : NetworkBehaviour
     public void SetStates(GameObject pr)
     {
         bool BloemState = !pr.GetComponent<PlantRedo>().BloemState;
-        RpcSetState(BloemState, pr);
+        if(BloemState != false)
+        {
+            RpcSetState(BloemState, pr);
+        }
     }
 
     [ClientRpc]
@@ -24,4 +27,11 @@ public class PlantManager : NetworkBehaviour
         pr.GetComponent<PlantRedo>().BloemState = state;
     }
 
+    private void Awake()
+    {
+        if (isServer)
+        {
+            Debug.Log("ree");
+        }
+    }
 }

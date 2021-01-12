@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class MiniGame : NetworkBehaviour
 {
-
     public GameObject PlayerFinal;
     public float radius;
     public GameObject wayPoint1;
@@ -22,7 +21,9 @@ public class MiniGame : NetworkBehaviour
     private float newy;
 
     [SerializeField]
-    private bool MiniGameActive = false;
+    public bool MiniGameActive = false;
+    [SyncVar]
+    public bool MiniGameDone = false;
     public int coins = 100;
 
     public float SumArray(List<GameObject> toBeSummed)
@@ -43,132 +44,150 @@ public class MiniGame : NetworkBehaviour
 
     IEnumerator sumLoop()
     {
-        foreach (GameObject p in players)
+        if (!MiniGameDone)
         {
-            if (iS >= players.Count)
+            foreach (GameObject p in players)
             {
-                iS = 0;
-                sum = 0;
+                if (iS >= players.Count)
+                {
+                    iS = 0;
+                    sum = 0;
+                }
+                else
+                {
+                    sum = sum + p.GetComponent<micPickup>().dbVal;
+                    sumUp = sum / players.Count;
+                    iS++;
+                }
+            }
+
+            if (players.Count == 0)
+            {
+                yield return new WaitForSeconds(2);
+                StartCoroutine(sumLoop());
             }
             else
             {
-                sum = sum + p.GetComponent<micPickup>().dbVal;
-                sumUp = sum / players.Count;
-                iS++;
-            }
-        }
-
-        if (players.Count == 0)
-        {
-            yield return new WaitForSeconds(2);
-            StartCoroutine(sumLoop());
-        }
-        else
-        {
-            for (int i = 0; i < players.Count;)
-            {
-                i++;
-
-                sum = sum + players[i].GetComponent<micPickup>().dbVal;
-                iS = i;
-                if (i >= players.Count)
+                for (int i = 0; i < players.Count;)
                 {
-                    sum = sum / players.Count;
-                    Sum.text = Convert.ToString(sum);
-                    sum = 0;
-                    i = 0;
+                    i++;
+
+                    sum = sum + players[i].GetComponent<micPickup>().dbVal;
+                    iS = i;
+                    if (i >= players.Count)
+                    {
+                        sum = sum / players.Count;
+                        Sum.text = Convert.ToString(sum);
+                        sum = 0;
+                        i = 0;
+                    }
                 }
             }
         }
-
     }
 
     IEnumerator moveUp(bool ac)
     {
-        if (ac)
+        if (!MiniGameDone)
         {
-            sumAround = SumArray(players) / players.Count - 2;
-            Sum.text = Convert.ToString(sumAround);
-            Vector3 target = wayPoint1.transform.position;
-            
-            if (float.IsNaN(sumAround))
+            if (ac)
             {
-                newy = 0;
-            }
-            else
-            {
-                if (sumAround < 0)
+                sumAround = SumArray(players) / players.Count - 2;
+                Sum.text = Convert.ToString(sumAround);
+                Vector3 target = wayPoint1.transform.position;
+
+                if (float.IsNaN(sumAround))
                 {
-                    newy = -0.3f;
-                }
-                else if (sumAround > 4)
-                {
-                    newy = 4;
+                    newy = 0;
                 }
                 else
                 {
-                    newy = sumAround;
+                    if (sumAround < 0)
+                    {
+                        newy = -0.3f;
+                    }
+                    else if (sumAround > 4)
+                    {
+                        newy = 4;
+                    }
+                    else
+                    {
+                        newy = sumAround;
+                    }
                 }
+
+                this.gameObject.transform.position = Vector3.MoveTowards(transform.position, target, 0.06f);
+                this.gameObject.transform.position = Vector3.MoveTowards(transform.position, new Vector3(this.transform.position.x, newy, this.gameObject.transform.position.z), 0.1f);
             }
 
-            this.gameObject.transform.position = Vector3.MoveTowards(transform.position, target, 0.06f);
-            this.gameObject.transform.position = Vector3.MoveTowards(transform.position, new Vector3(this.transform.position.x, newy, this.gameObject.transform.position.z), 0.1f);
-            Debug.Log(MiniGameActive);
-            
+            if (Vector3.Distance(this.gameObject.transform.position, wayPoint1.transform.position) < 1)
+            {
+                foreach(GameObject p in players)
+                {
+                    p.GetComponent<StartMiniGameSCRIPT>().finished = true;
+                }
+                MiniGameDone = true;
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.01f);
+                StartCoroutine(moveUp(MiniGameActive));
+            }
         }
-        yield return new WaitForSeconds(0.01f);
-        StartCoroutine(moveUp(MiniGameActive));
     }
+
     IEnumerator update()
     {
-        GameObject[] list = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject r in list)
+        if (!MiniGameDone)
         {
-            if (Vector3.Distance(this.gameObject.transform.position, r.transform.position) < radius)
+            GameObject[] list = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject r in list)
             {
-                if (!players.Contains(r))
+                if (Vector3.Distance(this.gameObject.transform.position, r.transform.position) < radius)
                 {
-                    players.Add(r);
-                }
-                if (r == players.First())
-                {
-                    if (!MiniGameActive)
+                    if (!players.Contains(r))
                     {
-                        r.GetComponent<micPickup>().t = true;
-                        MiniGameActive = r.GetComponent<StartMiniGameSCRIPT>().stat;
-                        r.GetComponent<micPickup>().t2 = false;
+                        players.Add(r);
+                    }
+                    if (r == players.First())
+                    {
+                        if (!MiniGameActive)
+                        {
+                            r.GetComponent<micPickup>().t = true;
+                            r.GetComponent<micPickup>().t2 = false;
+                        }
+                        else
+                        {
+                            r.GetComponent<micPickup>().t = false;
+                            r.GetComponent<micPickup>().t2 = false;
+                        }
                     }
                     else
                     {
-                        r.GetComponent<micPickup>().t = false;
-                        r.GetComponent<micPickup>().t2 = false;
+                        if (!MiniGameActive)
+                        {
+                            r.GetComponent<micPickup>().t = false;
+                            r.GetComponent<micPickup>().t2 = true;
+                        }
+                        else
+                        {
+                            r.GetComponent<micPickup>().t = false;
+                            r.GetComponent<micPickup>().t2 = false;
+                        }
                     }
                 }
                 else
                 {
-                    if (!MiniGameActive)
-                    {
-                        r.GetComponent<micPickup>().t = false;
-                        r.GetComponent<micPickup>().t2 = true;
-                    }
-                    else
+                    if (players.Count > 0)
                     {
                         r.GetComponent<micPickup>().t = false;
                         r.GetComponent<micPickup>().t2 = false;
+                        players.Remove(r);
                     }
                 }
             }
-            else
-            {
-                if (players.Count > 0)
-                {
-                    r.GetComponent<micPickup>().t = false;
-                    r.GetComponent<micPickup>().t2 = false;
-                    players.Remove(r);
-                }
-            }
+            yield return new WaitForSeconds(0.3f);
+            StartCoroutine(update());
         }
-        yield return new WaitForSeconds(0.3f);
-        StartCoroutine(update());
     }
 }

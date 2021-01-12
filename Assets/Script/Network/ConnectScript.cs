@@ -11,22 +11,20 @@ public class ConnectScript : MonoBehaviour
 {
     public InputField ip;
     [SerializeField]
-    private NetworkManager manager;
+    public NetworkManager manager;
     [SerializeField]
     private TMP_InputField PlayerName = null;
     [SerializeField]
     private bool isHost = false;
 
     private string highscoreURL = "http://86.91.184.42/?naam=";
-    
-    private void Awake()
-    {
-        manager = FindObjectOfType<NetworkManager>();
-    }
 
     private IEnumerator PostScores()
     {
+        manager = null;
+        manager = FindObjectOfType<NetworkManager>();
         manager.networkAddress = ip.text;
+        
         manager.DisplayName = PlayerName.text;
 
         string final = highscoreURL+ PlayerName.text;
@@ -44,10 +42,12 @@ public class ConnectScript : MonoBehaviour
         {
             if (isHost)
             {
+                manager.isHost = true;
                 StartServer();
             }
             else
             {
+                manager.isHost = false;
                 StartButtons();
             }
         }

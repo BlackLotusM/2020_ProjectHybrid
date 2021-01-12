@@ -24,6 +24,7 @@ namespace Mirror
     [HelpURL("https://mirror-networking.com/docs/Components/NetworkManager.html")]
     public class NetworkManager : MonoBehaviour
     {
+        public bool isHost { get; set; }
         public string DisplayName { get; set; }
         static readonly ILogger logger = LogFactory.GetLogger<NetworkManager>();
 

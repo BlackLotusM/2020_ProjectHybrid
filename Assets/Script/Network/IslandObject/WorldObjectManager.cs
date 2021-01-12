@@ -102,7 +102,7 @@ namespace FirstGearGames.Mirrors.SynchronizingBulkSceneObjects
         /// <summary>
         /// WorldObjects marked as dirty. These items must be sent to new joiners.
         /// </summary>
-        private HashSet<WorldObject> _dirty = new HashSet<WorldObject>();
+        public HashSet<WorldObject> _dirty = new HashSet<WorldObject>();
         /// <summary>
         /// Keys which can be reused from spawned WorldObject.
         /// </summary>

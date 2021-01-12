@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7669566062084500079}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plants
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,8 @@ GameObject:
   - component: {fileID: 2155829107802260294}
   - component: {fileID: 4479376164886444121}
   - component: {fileID: 4197236321293655719}
-  m_Layer: 0
+  - component: {fileID: 7934017055394477809}
+  m_Layer: 8
   m_Name: Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +95,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e12061746d216ca419f3e91d6555a854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   bloem: {fileID: 4010927957403984504, guid: af3b78c0a2baff14485aefa2143557ae, type: 3}
+  alreadyTake: 0
+  mustBeDead: 0
+  Partent: {fileID: 0}
+--- !u!65 &7934017055394477809
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3557794187392599623}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4091543250735776046
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +125,8 @@ GameObject:
   - component: {fileID: 3159201405998900550}
   - component: {fileID: 3633709686617368935}
   - component: {fileID: 4116114535483486892}
-  m_Layer: 0
+  - component: {fileID: 1118913324985354370}
+  m_Layer: 8
   m_Name: Spawn (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +175,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e12061746d216ca419f3e91d6555a854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   bloem: {fileID: 4010927957403984504, guid: af3b78c0a2baff14485aefa2143557ae, type: 3}
+  alreadyTake: 0
+  mustBeDead: 1
+  Partent: {fileID: 0}
+--- !u!65 &1118913324985354370
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4091543250735776046}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4378233876625308910
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +206,7 @@ GameObject:
   - component: {fileID: 7459359163384104433}
   - component: {fileID: 7797159271883346604}
   - component: {fileID: 3583135601756700179}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +298,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5450441447683200403}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WayPoint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +313,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4696060345097052199}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.92, y: 1.2, z: 10.83}
+  m_LocalPosition: {x: 10.7, y: 1.2, z: 24.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4352658058947234072}
@@ -290,7 +328,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5534411954738715634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +358,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4709223402497210793}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Node
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +390,8 @@ GameObject:
   - component: {fileID: 9024841359370542256}
   - component: {fileID: 6722797949821046852}
   - component: {fileID: 5157467398733506648}
-  m_Layer: 0
+  - component: {fileID: 3284220473676477117}
+  m_Layer: 8
   m_Name: Spawn (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +440,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e12061746d216ca419f3e91d6555a854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   bloem: {fileID: 4010927957403984504, guid: af3b78c0a2baff14485aefa2143557ae, type: 3}
+  alreadyTake: 0
+  mustBeDead: 1
+  Partent: {fileID: 0}
+--- !u!65 &3284220473676477117
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8108662638053181062}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8296094063222049775
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,9 +469,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4352658058947234072}
   - component: {fileID: 484681134805254503}
-  m_Layer: 0
+  - component: {fileID: 6370941204614211386}
+  m_Layer: 8
   m_Name: JungleIsland
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -455,6 +513,19 @@ MonoBehaviour:
   Data:
     _key: 0
   _visualObject: {fileID: 8296094063222049775}
+--- !u!65 &6370941204614211386
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296094063222049775}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 100, y: 1, z: 100}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8948312247448167921
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +537,8 @@ GameObject:
   - component: {fileID: 404382142476787640}
   - component: {fileID: 659530214571978884}
   - component: {fileID: 4500340535409871222}
-  m_Layer: 0
+  - component: {fileID: 1027011545738764345}
+  m_Layer: 8
   m_Name: Spawn (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -515,7 +587,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e12061746d216ca419f3e91d6555a854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   bloem: {fileID: 4010927957403984504, guid: af3b78c0a2baff14485aefa2143557ae, type: 3}
+  alreadyTake: 0
+  mustBeDead: 0
+  Partent: {fileID: 0}
+--- !u!65 &1027011545738764345
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8948312247448167921}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3888997226917954694
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -527,13 +617,21 @@ PrefabInstance:
       propertyPath: wayPoint1
       value: 
       objectReference: {fileID: 4696060345097052199}
+    - target: {fileID: 1499384306646947820, guid: a7f5a29468b252e4b9d3ca1fd806496d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1678359818353854246, guid: a7f5a29468b252e4b9d3ca1fd806496d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3398137889886441458, guid: a7f5a29468b252e4b9d3ca1fd806496d, type: 3}
       propertyPath: m_AssetId
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4634940894360022840, guid: a7f5a29468b252e4b9d3ca1fd806496d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -32
       objectReference: {fileID: 0}
     - target: {fileID: 4634940894360022840, guid: a7f5a29468b252e4b9d3ca1fd806496d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -541,7 +639,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4634940894360022840, guid: a7f5a29468b252e4b9d3ca1fd806496d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 22.9
       objectReference: {fileID: 0}
     - target: {fileID: 4634940894360022840, guid: a7f5a29468b252e4b9d3ca1fd806496d, type: 3}
       propertyPath: m_LocalRotation.x
@@ -578,6 +676,18 @@ PrefabInstance:
     - target: {fileID: 4647182155795989765, guid: a7f5a29468b252e4b9d3ca1fd806496d, type: 3}
       propertyPath: m_Name
       value: MiniGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 4647182155795989765, guid: a7f5a29468b252e4b9d3ca1fd806496d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780688240265513237, guid: a7f5a29468b252e4b9d3ca1fd806496d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6592393305403817369, guid: a7f5a29468b252e4b9d3ca1fd806496d, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7f5a29468b252e4b9d3ca1fd806496d, type: 3}
