@@ -16,91 +16,47 @@ public class Chat : NetworkBehaviour
     [Header("Chat Related")]
     [SerializeField] private TextMeshProUGUI chatText = null;
     [SerializeField] private TMP_InputField inputField = null;
-    [SerializeField] private GameObject canvas = null;
+    [SerializeField] private TextMeshProUGUI MobilechatText = null;
+    [SerializeField] private TMP_InputField MobileinputField = null;
     [SerializeField] private PlayerManager pm = null;
-
     private static event Action<string> OnMessage;
-    private bool active = false;
+
     [SerializeField]private bool ismobile = false;
     [SerializeField] private GameObject canvasUI = null;
     [SerializeField] private GameObject noti = null;
     private string highscoreURL = "http://86.91.184.42/updateLastPosition.php?naam='";
     private NetworkManager nm;
+    public GameObject MobileUI;
 
 
-    private IEnumerator PostScores()
-    {
-        if (!ismobile)
-        {
-            GameObject hand = GameObject.Find(pm.name);
-            float x = hand.GetComponent<Transform>().position.x;
-            float y = hand.GetComponent<Transform>().position.y;
-            float z = hand.GetComponent<Transform>().position.z;
-
-            string final = highscoreURL + pm.name + "'&Pos_X=" + x + "&Pos_Y=" + y + "&Pos_Z=" + z;
-            var hs_get = new UnityWebRequest(final);
-            hs_get.downloadHandler = new DownloadHandlerBuffer();
-            yield return hs_get.SendWebRequest();
-
-            if (hs_get.error != null)
-            {
-                print("There was an error getting the high score: " + hs_get.error);
-            }
-            else
-            {
-                CmdSendMessage("Left the game");
-
-                if (isServer)
-                {
-                    WorldObjectManager nm2 = FindObjectOfType<WorldObjectManager>();
-                    nm2._dirty.Clear();
-                    nm.StopHost();
-                    nm.StopServer();
-                }
-                else
-                {
-                    nm.StopClient();
-                }
-                SceneManager.LoadScene("Menu");
-            }
-        }
-        else
-        {
-            if (isServer)
-                {
-                    nm.StopHost();
-                }
-                else
-                {
-                    nm.StopClient();
-                }
-                SceneManager.LoadScene("Menu");
-        }
-    }
     public void StopClientServer()
     {
         StartCoroutine(PostScores());
     }
 
-    // Called when the a client is connected to the server
     public override void OnStartAuthority()
     {
         OnMessage += HandleNewMessage;
     }
 
-    // Called when a client has exited the server
-    [ClientCallback]
-    private void OnDestroy()
-    {
-        if (!hasAuthority) { return; }
-        OnMessage -= HandleNewMessage;
-    }
-
     private void Start()
     {
         if (!isLocalPlayer) return;
-        canvasUI.SetActive(true);
-        noti.SetActive(true);
+        if (!ismobile)
+        {
+            MobileUI.SetActive(false);
+            canvasUI.SetActive(true);
+            noti.SetActive(true);
+        }
+        else
+        {
+            chatText = MobilechatText;
+            inputField = MobileinputField;
+
+            MobileUI.SetActive(true);
+            canvasUI.SetActive(false);
+            noti.SetActive(false);
+        }
         nm = FindObjectOfType<NetworkManager>();
         if (isClient)
         {
@@ -112,14 +68,51 @@ public class Chat : NetworkBehaviour
         }
     }
 
+    private IEnumerator PostScores()
+    {
+        GameObject hand = GameObject.Find(pm.name);
+        float x = hand.GetComponent<Transform>().position.x;
+        float y = hand.GetComponent<Transform>().position.y;
+        float z = hand.GetComponent<Transform>().position.z;
+
+        string final = highscoreURL + pm.name + "'&Pos_X=" + x + "&Pos_Y=" + y + "&Pos_Z=" + z;
+        var hs_get = new UnityWebRequest(final);
+        hs_get.downloadHandler = new DownloadHandlerBuffer();
+        yield return hs_get.SendWebRequest();
+
+        if (hs_get.error != null)
+        {
+            print("There was an error getting the high score: " + hs_get.error);
+        }
+        else
+        {
+            CmdSendMessage("Left the game");
+
+            if (isServer)
+            {
+                WorldObjectManager nm2 = FindObjectOfType<WorldObjectManager>();
+                nm2._dirty.Clear();
+                nm.StopHost();
+                nm.StopServer();
+            }
+            else
+            {
+                nm.StopClient();
+            }
+            SceneManager.LoadScene("Menu");
+        }
+    }
+
+    [ClientCallback]
+    private void OnDestroy()
+    {
+        if (!hasAuthority) { return; }
+        OnMessage -= HandleNewMessage;
+    }
+
     private void HandleNewMessage(string message)
     {
         chatText.text += message;
-    }
-
-    private void Update()
-    {
-
     }
 
     [Client]
@@ -139,14 +132,12 @@ public class Chat : NetworkBehaviour
     [Command]
     private void CmdSendMessage(string message)
     {
-        // Validate message
         RpcHandleMessage($"[{pm.playerName}]: {message}");
     }
 
     [Command]
     private void CmdServerMessage(string message)
     {
-        // Validate message
         RpcHandleMessage($"Weather Station: {message}");
     }
 

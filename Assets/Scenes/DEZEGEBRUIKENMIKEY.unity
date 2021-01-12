@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.46252167, g: 0.57527894, b: 1.0358526, a: 1}
+  m_IndirectSpecularColor: {r: 0.1809767, g: 0.290451, b: 1.0805763, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -496,6 +496,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 680723747, guid: 8a43788b87f4fa64585878d3ef8e5735, type: 3}
+      propertyPath: sceneId
+      value: 2876551486
+      objectReference: {fileID: 0}
+    - target: {fileID: 1874994807, guid: 8a43788b87f4fa64585878d3ef8e5735, type: 3}
+      propertyPath: sceneId
+      value: 3255666735
+      objectReference: {fileID: 0}
     - target: {fileID: 1180034066890194709, guid: 8a43788b87f4fa64585878d3ef8e5735, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.736606
@@ -540,9 +548,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1384258026997596085, guid: 8a43788b87f4fa64585878d3ef8e5735, type: 3}
+      propertyPath: sceneId
+      value: 2508612090
+      objectReference: {fileID: 0}
     - target: {fileID: 1524980697176379311, guid: 8a43788b87f4fa64585878d3ef8e5735, type: 3}
       propertyPath: m_Name
       value: Jungle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3372015616193685457, guid: 8a43788b87f4fa64585878d3ef8e5735, type: 3}
+      propertyPath: sceneId
+      value: 2688603133
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674054829585257473, guid: 8a43788b87f4fa64585878d3ef8e5735, type: 3}
+      propertyPath: sceneId
+      value: 2338620426
+      objectReference: {fileID: 0}
+    - target: {fileID: 7446142920492523404, guid: 8a43788b87f4fa64585878d3ef8e5735, type: 3}
+      propertyPath: sceneId
+      value: 3714836768
+      objectReference: {fileID: 0}
+    - target: {fileID: 9038477131375857489, guid: 8a43788b87f4fa64585878d3ef8e5735, type: 3}
+      propertyPath: sceneId
+      value: 235396079
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a43788b87f4fa64585878d3ef8e5735, type: 3}

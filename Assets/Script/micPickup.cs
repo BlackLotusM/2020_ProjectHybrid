@@ -8,6 +8,7 @@ using Mirror;
 
 public class micPickup : NetworkBehaviour
 {
+    public bool isMobile;
     public float rmsVal;
     [SyncVar]
     public float dbVal;
@@ -50,18 +51,21 @@ public class micPickup : NetworkBehaviour
     private void Start()
     {
         if (!isLocalPlayer) return;
-        _samples = new float[QSamples];
-        _spectrum = new float[QSamples];
-        _fSample = AudioSettings.outputSampleRate;
-        AudioSource audio = GetComponent<AudioSource>();
-        audio.clip = Microphone.Start(null, true, 1, 22050);
-        audio.loop = true;
-        while (!(Microphone.GetPosition(null) > 0)) { }
-        audio.Play();
-        StartCoroutine(Updateall());
-        
-        StartCoroutine(AnalyzeSound());
-        canvas.gameObject.SetActive(true);
+        if (!isMobile)
+        {
+            _samples = new float[QSamples];
+            _spectrum = new float[QSamples];
+            _fSample = AudioSettings.outputSampleRate;
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.clip = Microphone.Start(null, true, 1, 22050);
+            audio.loop = true;
+            while (!(Microphone.GetPosition(null) > 0)) { }
+            audio.Play();
+            StartCoroutine(Updateall());
+
+            StartCoroutine(AnalyzeSound());
+            canvas.gameObject.SetActive(true);
+        }
     }
 
     IEnumerator Updateall()

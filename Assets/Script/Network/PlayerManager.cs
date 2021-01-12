@@ -57,7 +57,7 @@ public class PlayerManager : NetworkBehaviour
     public List<string> setList;
 
     public GameObject MinigGame;
-
+    
     private void Awake()
     {
         NetManager = FindObjectOfType<NetworkManager>();
