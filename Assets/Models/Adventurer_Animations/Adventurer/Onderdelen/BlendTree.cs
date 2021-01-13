@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class BlendTree : MonoBehaviour
 {
     public float smoothBlend = 0.1f;
-    private Animator anim;
+    public Animator anim;
+    public NetworkAnimator an;
 
     void Start()
     {
@@ -19,6 +21,23 @@ public class BlendTree : MonoBehaviour
 
     void Move(float x, float y)
     {
-        anim.SetFloat("Blend", y, smoothBlend, Time.deltaTime);
+        if (y == 0)
+        {
+            an.SetTrigger("Idle");
+            an.ResetTrigger("Back");
+            an.ResetTrigger("Walk");
+        }
+        else if(y > 0.2)
+        {
+            an.SetTrigger("Walk");
+            an.ResetTrigger("Back");
+            an.ResetTrigger("Idle");
+        }
+        else if (y < -0.2)
+        {
+            an.SetTrigger("Back");
+            an.ResetTrigger("Walk");
+            an.ResetTrigger("Idle");
+        }
     }
 }
