@@ -84,9 +84,9 @@ public class PlayerManager : NetworkBehaviour
     
     public override void OnStartLocalPlayer()
     {
-        Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        //Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
         playerName = NetManager.DisplayName;
-        CmdSetupPlayer(playerName, color);
+        //CmdSetupPlayer(playerName, color);
         if (isServer){InitIslands();}
         StartCoroutine(InitializePlayer(gameObject));
     }
