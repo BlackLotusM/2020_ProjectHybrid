@@ -8,6 +8,10 @@ using Newtonsoft.Json.Linq;
 
 public class Weather : NetworkBehaviour
 {
+    [Header("audioClips")]
+    public GameObject audioHappy;
+    public GameObject audioSad;
+    public GameObject audioAngry;
 
     public Image holder;
     public Sprite rain;
@@ -81,6 +85,8 @@ public class Weather : NetworkBehaviour
     {
         var GO = Instantiate(sad, pos, Quaternion.identity) as GameObject;
         NetworkServer.Spawn(GO);
+        var GO2 = Instantiate(audioSad, pos, Quaternion.identity) as GameObject;
+        NetworkServer.Spawn(GO2);
     }
 
     [Command]
@@ -88,6 +94,8 @@ public class Weather : NetworkBehaviour
     {
         var GO = Instantiate(happy, pos, Quaternion.identity) as GameObject;
         NetworkServer.Spawn(GO);
+        var GO2 = Instantiate(audioHappy, pos, Quaternion.identity) as GameObject;
+        NetworkServer.Spawn(GO2);
     }
 
     [Command]
@@ -95,6 +103,8 @@ public class Weather : NetworkBehaviour
     {
         var GO = Instantiate(mad, pos, Quaternion.identity) as GameObject;
         NetworkServer.Spawn(GO);
+        var GO2 = Instantiate(audioAngry, pos, Quaternion.identity) as GameObject;
+        NetworkServer.Spawn(GO2);
     }
 
     void setMad()
