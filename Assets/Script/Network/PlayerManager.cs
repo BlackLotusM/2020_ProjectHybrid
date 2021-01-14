@@ -57,6 +57,7 @@ public class PlayerManager : NetworkBehaviour
     public List<string> setList;
 
     public GameObject MinigGame;
+    public AudioSource audioP;
     
     private void Awake()
     {
@@ -67,7 +68,6 @@ public class PlayerManager : NetworkBehaviour
     void OnNameChanged(string _Old, string _New)
     {
             playerNameText.text = playerName;
-
     }
 
     void OnColorChanged(Color _Old, Color _New)
@@ -84,9 +84,8 @@ public class PlayerManager : NetworkBehaviour
     
     public override void OnStartLocalPlayer()
     {
-        //Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
         playerName = NetManager.DisplayName;
-        //CmdSetupPlayer(playerName, color);
+        CmdSetupPlayer(playerName);
         if (isServer){InitIslands();}
         StartCoroutine(InitializePlayer(gameObject));
     }
@@ -102,7 +101,6 @@ public class PlayerManager : NetworkBehaviour
                 {
                     Vector3 pos = new Vector3((float)obj.x, (float)obj.y, (float)obj.z);
                     WorldObjectTypes value = (WorldObjectTypes)obj.IslandType;
-
                     WorldObject wo = WorldObjectManager.Instance.InstantiateWorldObject(value, pos, Quaternion.identity);
                     IslandObjectData data = (IslandObjectData)wo.ReturnData();
                     data.SetTreeState(IslandObjectData.TreeStates.Default);
@@ -233,10 +231,9 @@ public class PlayerManager : NetworkBehaviour
     }
 
     [Command]
-    public void CmdSetupPlayer(string _name, Color _col)
+    public void CmdSetupPlayer(string _name)
     {
         playerName = _name;
-        playerColor = _col;
     }
 
     void Update()
@@ -267,6 +264,25 @@ public class PlayerManager : NetworkBehaviour
             
             this.gameObject.GetComponent<Rigidbody>().transform.Rotate(0, moveX, 0);
             this.gameObject.GetComponent<Rigidbody>().transform.Translate(0, 0, moveZ);
+            int clip = GetRandomClip();
+            if (!audioP.isPlaying)
+            {
+                if (Input.GetAxis("Vertical") >= 0.2)
+                {
+                    audioP.PlayOneShot(footsteps[clip]);
+                }else if (Input.GetAxis("Vertical") <= -0.2)
+                {
+                    audioP.PlayOneShot(footsteps[clip]);
+                }
+            }
         }
+
+        
+    }
+    public AudioClip[] footsteps;
+
+    private int GetRandomClip()
+    {
+        return UnityEngine.Random.Range(0, footsteps.Length);
     }
 }

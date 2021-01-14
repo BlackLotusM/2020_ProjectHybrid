@@ -9,6 +9,10 @@ TagManager:
   - MiniGame
   - Bloem
   - PlantContainer
+  - north
+  - east
+  - south
+  - west
   layers:
   - Default
   - TransparentFX
@@ -19,8 +23,8 @@ TagManager:
   - 
   - 
   - Player
-  - 
-  - 
+  - BlobCol
+  - Blob
   - 
   - 
   - 

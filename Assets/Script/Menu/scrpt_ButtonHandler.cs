@@ -19,6 +19,8 @@ public class scrpt_ButtonHandler : MonoBehaviour, IPointerEnterHandler, IPointer
     [SerializeField]
     private bool Exit = false;
     [SerializeField]
+    private bool Return = false;
+    [SerializeField]
     private GameObject OptionPanel = null;
 
     [SerializeField]
@@ -55,23 +57,33 @@ public class scrpt_ButtonHandler : MonoBehaviour, IPointerEnterHandler, IPointer
         }
         else
         {
-            if (Option)
+            if (Return)
             {
-                EnableOption();
+                MainPanel.SetActive(true);
+                OptionPanel.SetActive(false);
+                HostPanel.SetActive(false);
+                JoinPanel.SetActive(false);
             }
-            if (Host)
+            else
             {
-                EnableHost();
+                if (Option)
+                {
+                    EnableOption();
+                }
+                if (Host)
+                {
+                    EnableHost();
+                }
+                if (Join)
+                {
+                    EnableJoin();
+                }
+                if (Exit)
+                {
+                    Application.Quit();
+                }
+                MainPanel.SetActive(false);
             }
-            if (Join)
-            {
-                EnableJoin();
-            }
-            if (Exit)
-            {
-                Application.Quit();
-            }
-            MainPanel.SetActive(false);
         }
     }
 

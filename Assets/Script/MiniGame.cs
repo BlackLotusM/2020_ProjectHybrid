@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class MiniGame : NetworkBehaviour
 {
+    public GameObject ResetPoint;
     public GameObject PlayerFinal;
     public float radius;
     public GameObject wayPoint1;
@@ -119,8 +120,16 @@ public class MiniGame : NetworkBehaviour
                 this.gameObject.transform.position = Vector3.MoveTowards(transform.position, target, 0.06f);
                 this.gameObject.transform.position = Vector3.MoveTowards(transform.position, new Vector3(this.transform.position.x, newy, this.gameObject.transform.position.z), 0.1f);
             }
+            else
+            {
+                this.gameObject.transform.position = ResetPoint.transform.position;
+            }
 
             yield return new WaitForSeconds(0.01f);
+            if(this.gameObject.transform.position.y <= 0)
+            {
+                MiniGameActive = false;
+            }
             StartCoroutine(moveUp(MiniGameActive));
             if (Vector3.Distance(new Vector3(this.gameObject.transform.position.x, 0 , this.gameObject.transform.position.z), new Vector3(wayPoint1.transform.position.x, 0, wayPoint1.transform.position.z)) < 1)
             {

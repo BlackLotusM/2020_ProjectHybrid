@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 public class ConnectScript : MonoBehaviour
 {
-    public InputField ip;
+    public TMP_InputField ip;
     [SerializeField]
     public NetworkManager manager;
     [SerializeField]

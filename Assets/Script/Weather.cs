@@ -53,7 +53,7 @@ public class Weather : NetworkBehaviour
         yield return json22;
         dynamic data2 = JObject.Parse(json22);
         Vector3 pos = new Vector3((float)data2.PosX, (float)data2.PosY, (float)data2.PosZ);
-        CmdSetClear(pos);
+        //CmdSetClear(pos);
         
     }
 
@@ -114,7 +114,7 @@ public class Weather : NetworkBehaviour
         holder.sprite = thunder;
         string final = getSpawnPos + pm.playerName;
         StartCoroutine(getPartPosMad(final));
-        Notication.startNotification("The storm", "A storm is roling in, but don't be afraid everything will clear up.");
+        Notication.startNotification("Weather Station", "Be aware storms can be very harsh. But you don't have to face it alone.");
         chat.SendCustom($"Uh oh.. Looks like a storm’s coming on {pm.playerName} their island.");
     }
     void setClear()
@@ -124,7 +124,7 @@ public class Weather : NetworkBehaviour
         holder.sprite = normal;
         string final = getSpawnPos + pm.playerName;
         StartCoroutine(getPartPosClear(final));
-        Notication.startNotification("Open sky", "The nature seems at peace. Time to explore and try new things.");
+        Notication.startNotification("Weather Station", "The nature seems at peace. Time to explore and try new things.");
         chat.SendCustom($"What a lovely day on {pm.playerName} their island. Would be nice to check it out.");
     }
 
@@ -135,7 +135,7 @@ public class Weather : NetworkBehaviour
         holder.sprite = rain;
         string final = getSpawnPos + pm.playerName;
         StartCoroutine(getPartPosRain(final));
-        Notication.startNotification("Angle tears", "Rain fills the sky but look at the ground. Everything will dry up and the weather will get better.");
+        Notication.startNotification("Weather Station", "Rain fills the sky but look at the ground. Everything will dry up and the weather will get better.");
         chat.SendCustom($"Looks like it’s raining cats and dogs on  {pm.playerName} their island today.");
     }
 }

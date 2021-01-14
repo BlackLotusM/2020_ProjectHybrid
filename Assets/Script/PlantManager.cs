@@ -8,6 +8,7 @@ public class PlantManager : NetworkBehaviour
     public int PlantsFixed;
     public ShowRemove sr;
     private bool anim = false;
+    public SpawnBlob sb;
     public void bishwerk(GameObject pr)
     {
         SetStates(pr);
@@ -43,6 +44,7 @@ public class PlantManager : NetworkBehaviour
         {
             if (!anim)
             {
+                sb.SpawnBlobje();
                 sr.startNotification("Plants quest", "You have completed the quest.");
                 anim = true;
             }

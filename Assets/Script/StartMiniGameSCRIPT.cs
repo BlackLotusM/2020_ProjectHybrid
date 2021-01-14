@@ -17,6 +17,7 @@ public class StartMiniGameSCRIPT : NetworkBehaviour
     public GameObject IsCheck;
     public ShowRemove Notifaction;
     public bool noti = false;
+    public SpawnBlob sb;
 
     private void Start()
     {
@@ -31,6 +32,7 @@ public class StartMiniGameSCRIPT : NetworkBehaviour
             IsCheck.SetActive(false);
             if (!noti)
             {
+                sb.SpawnBlobje();
                 Notifaction.startNotification("Minigame quest", "Well done, you finished this quest.");
                 noti = true;
             }

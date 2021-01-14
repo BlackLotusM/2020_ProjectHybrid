@@ -7,21 +7,21 @@ using System;
 public class animatorHandler : NetworkBehaviour
 {
     public FootSteps foot;
-    internal void setSound(int clip, GameObject audiosource)
+    public GameObject Sound;
+    public GameObject prefab;
+    public GameObject point;
+
+    internal void setSound(int clip)
     {
-        CmdSetSound(clip, audiosource);
+        CmdSpawnSound(clip);
+        
     }
 
     [Command]
-    public void CmdSetSound(int ac, GameObject audioObject)
+    void CmdSpawnSound(int i)
     {
-        audioObject.GetComponent<AudioSource>().PlayOneShot(foot.footsteps[ac]);
-        RpcUpdate(ac, audioObject);
-    }
-
-    [ClientRpc]
-    public void RpcUpdate(int ac, GameObject audioObject)
-    {
-        audioObject.GetComponent<AudioSource>().PlayOneShot(foot.footsteps[ac]);
+        var GO = Instantiate(prefab, point.transform.position, Quaternion.identity) as GameObject;
+        GO.gameObject.GetComponent<AudioSource>().clip = foot.footsteps[i];
+        NetworkServer.Spawn(GO);
     }
 }

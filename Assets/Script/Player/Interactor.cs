@@ -6,9 +6,18 @@ namespace FirstGearGames.Mirrors.InteractingSceneObjects
 
     public class Interactor : NetworkBehaviour
     {
+        public AudioSource Audio;
+        public AudioClip clip;
         private void Update()
         {
-            ClientUpdate();
+            if (!isLocalPlayer)
+            {
+                return;
+            }
+            else
+            {
+                ClientUpdate();
+            }
         }
 
         private void ClientUpdate()
@@ -19,6 +28,7 @@ namespace FirstGearGames.Mirrors.InteractingSceneObjects
 
         private void TryInteract()
         {
+            
             Collider[] hits = Physics.OverlapSphere(transform.position, 0.6f);
             for (int i = 0; i < hits.Length; i++)
             {
@@ -27,6 +37,7 @@ namespace FirstGearGames.Mirrors.InteractingSceneObjects
                     PlantRedo PR = hits[i].gameObject.GetComponent<PlantRedo>();
                     if (PR.BloemState == false)
                     {
+                        Audio.PlayOneShot(clip);
                         PR.SetState(this.gameObject.GetComponent<PlantManager>());
                         this.gameObject.GetComponent<PlantManager>().PlantsFixed++;
                     }

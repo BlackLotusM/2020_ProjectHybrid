@@ -14,17 +14,22 @@ public class PlantRedo : NetworkBehaviour
     [SerializeField]
     private GameObject happyBloem;
 
+
     void Bish(bool _old, bool newV)
     {
         BloemState = newV;
     }
-
+    private void Start()
+    {
+        
+    }
     private void Awake()
     {
             int i = Random.Range(0, 22);
             if (i > 7)
             {
-                BloemState = true;
+            BloemState = true;
+                
             }
             else
             {
@@ -43,6 +48,8 @@ public class PlantRedo : NetworkBehaviour
         {
             sadBloem.SetActive(false);
             happyBloem.SetActive(true);
+            
+
         }
         else
         {
