@@ -43,6 +43,7 @@ public class ConnectScript : MonoBehaviour
         }
         yield return new WaitForSeconds(0.1f);
 
+        //Disabled purely for starting purpose
         //if (hs_get.error != null)
         //{
         //    print("There was an error getting the high score: " + hs_get.error);
