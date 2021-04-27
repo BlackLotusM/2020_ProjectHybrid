@@ -31,26 +31,35 @@ public class ConnectScript : MonoBehaviour
         var hs_get = new UnityWebRequest(final);
         hs_get.downloadHandler = new DownloadHandlerBuffer();
 
-        
-        yield return hs_get.SendWebRequest();
-
-        if (hs_get.error != null)
+        if (isHost)
         {
-            print("There was an error getting the high score: " + hs_get.error);
+            manager.isHost = true;
+            StartServer();
         }
         else
         {
-            if (isHost)
-            {
-                manager.isHost = true;
-                StartServer();
-            }
-            else
-            {
-                manager.isHost = false;
-                StartButtons();
-            }
+            manager.isHost = false;
+            StartButtons();
         }
+        yield return new WaitForSeconds(0.1f);
+
+        //if (hs_get.error != null)
+        //{
+        //    print("There was an error getting the high score: " + hs_get.error);
+        //}
+        //else
+        //{
+        //    if (isHost)
+        //    {
+        //        manager.isHost = true;
+        //        StartServer();
+        //    }
+        //    else
+        //    {
+        //        manager.isHost = false;
+        //        StartButtons();
+        //    }
+        //}
     }
 
     public void connect()
